@@ -1,0 +1,30 @@
+package com.calculator.build.initial;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+
+public class EncryptorTest {
+	
+	String input = "Raja Hasnain Anwar";
+	String key = "NAlgorithmFoundException";
+	
+	@Test
+	public void test1() {
+		Encryptor encryptor = new Encryptor(input, key, "AES");
+		assertEquals("wQaERXSxDdb8OMXChTqlyA==",encryptor.encrypt());
+	}
+	
+	@Test
+	public void test2() {
+		Encryptor encryptor = new Encryptor(input, key, "Blowfish");
+		assertEquals("wQaERXSxDdb8OMXChTqlyA====",encryptor.encrypt());
+	}
+	
+	@Test
+	public void test2() {
+		encryptor = new Encryptor(input, key, "3DES");
+		assertEquals("mcEeu5h7yoA=",encryptor.encrypt());
+	}
+	
+}

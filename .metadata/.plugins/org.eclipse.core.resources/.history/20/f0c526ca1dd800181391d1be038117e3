@@ -1,0 +1,17 @@
+package com.calculator.build.initial;
+
+import java.util.Scanner;
+
+public class EncryptorTest {
+
+	public static void main(String[] args) {
+		String input = "Raja Hasnain Anwar";
+		String alog = "AES";
+		String key = "NAlgorithmFoundException";
+
+		Encryptor encryptor = new Encryptor(input, key, algo);
+		System.out.println(encryptor.encrypt());
+
+	}
+
+}
