@@ -18,7 +18,7 @@ public class TripleDESEncryptionStrategy implements EncryptionStrategy {
 	}
 	
 	@Override
-	public void encryptData(String plainText) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException{
+	public String encryptData(String plainText) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException{
 		SecretKeySpec secretKey = new SecretKeySpec(key, "DESede");
 		Cipher cipher = Cipher.getInstance("DESede");
 		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -29,10 +29,26 @@ public class TripleDESEncryptionStrategy implements EncryptionStrategy {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		byte[] encoded = Base64.getEncoder().encode(res);
+		return new String(encoded);
 	}
 	
-	public String encode() {
-		byte[] encoded = Base64.getEncoder().encode(res);
-		return new String(encoded); 
+	@Override
+	public String decryptData(String plainText) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException{
+		SecretKeySpec secretKey = new SecretKeySpec(key, "DESede");
+		Cipher cipher = Cipher.getInstance("DESede");
+		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		
+		try {
+			res = cipher.doFinal(plainText.getBytes());
+		} catch (IllegalBlockSizeException | BadPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		byte[] encoded = Base64.getDecoder().decode(res);
+		return new String(encoded);
 	}
+	
 }
