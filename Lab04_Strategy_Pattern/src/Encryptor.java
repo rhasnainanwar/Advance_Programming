@@ -24,9 +24,10 @@ public class Encryptor {
 			algorithm = new BlowfishEncryptionStrategy();
 		else if(algo.equals("3DES"))
 			algorithm = new TripleDESEncryptionStrategy();
-		else
+		else {
 			System.out.println("Invalid alogrith. Choosing AES by default...");
 			algorithm = new AesEncryptionStrategy();
+		}
 	}
 	
 	public String encrypt(String message) {

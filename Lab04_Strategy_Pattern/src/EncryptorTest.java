@@ -17,7 +17,6 @@ public class EncryptorTest {
 		Encryptor encryptor = new Encryptor(algo, key);
 		String res = encryptor.encrypt(input);
 		System.out.println(res);
-		System.out.println(encryptor.decrypt(res));
 
 	}
 

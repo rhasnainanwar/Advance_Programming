@@ -7,33 +7,51 @@ import javax.crypto.NoSuchPaddingException;
 
 public class Encryptor {
 	private EncryptionStrategy algorithm = null;
-	private String message = "";
-	private String key = "";
 	
-	public Encryptor(String message, String key, String algo) {
-		this.message = message;
-		this.key = key;
+	public Encryptor(String algo, String key) {
+		
+		setAlgorithm(algo);
+		
+		algorithm.setKey(key);
+	}
+	
+	public void setKey(String key) {
+		algorithm.setKey(key);
+	}
+	
+	public void setAlgorithm(String algo) {
 		if(algo.equals("AES"))
 			algorithm = new AesEncryptionStrategy();
 		else if(algo.equals("Blowfish"))
-			algorithm = new AesEncryptionStrategy();
+			algorithm = new BlowfishEncryptionStrategy();
 		else if(algo.equals("3DES"))
 			algorithm = new TripleDESEncryptionStrategy();
+		else {
+			System.out.println("Invalid alogrith. Choosing AES by default...");
+			algorithm = new AesEncryptionStrategy();
+		}
 	}
 	
-	public String encrypt() {
-		if(algorithm == null)
-			return "INVALID ALGORITHM";
-		
-		algorithm.setKey(key);
-		
+	public String encrypt(String message) {
+		String out = "";
 		try {
-			algorithm.encryptData(message);
+			out = algorithm.encryptData(message);
 		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return algorithm.getResult();
+		return out;
 	}
 	
+	public String decrypt(String message) {
+		String out = "";
+		try {
+			out = algorithm.decryptData(message);
+		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return out;
+	}
 }

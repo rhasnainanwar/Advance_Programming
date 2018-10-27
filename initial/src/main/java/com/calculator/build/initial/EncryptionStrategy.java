@@ -6,9 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.NoSuchPaddingException;
 
 public interface EncryptionStrategy {
-    void encryptData(String plainText) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException;
-
-	String getResult();
+    String encryptData(String plainText) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException;
+    String decryptData(String plainText) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException;
 
 	void setKey(String key);
 }
